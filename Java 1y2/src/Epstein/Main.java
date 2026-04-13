@@ -24,7 +24,10 @@ public class Main {
 
              while (lector.hasNextLine()){
                  String data = lector.next();
-                 if (data.equalsIgnoreCase(palabraBuscada)){
+                 String palabraLimpia = data.replaceAll("[\\p{Punct}]", "").toLowerCase();
+
+                 // 2. Comparamos
+                 if (palabraLimpia.equals(palabraBuscada)) {
                      contador++;
                  }
              }
