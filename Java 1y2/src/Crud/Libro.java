@@ -3,12 +3,12 @@ package Crud;
 public class Libro {
     private String titulo;
     private String autor;
-    private String anioPubli;
+    private int anioPubli;
 
-    public Libro(String anioPubli, String autor, String titulo) {
-        this.anioPubli = anioPubli;
-        this.autor = autor;
+    public Libro(String titulo, String autor, int anioPubli) {
         this.titulo = titulo;
+        this.autor = autor;
+        this.anioPubli = anioPubli;
     }
 
     public String getTitulo() {
@@ -27,11 +27,11 @@ public class Libro {
         this.autor = autor;
     }
 
-    public String getAnioPubli() {
+    public int getAnioPubli() {
         return anioPubli;
     }
 
-    public void setAnioPubli(String anioPubli) {
+    public void setAnioPubli(int anioPubli) {
         this.anioPubli = anioPubli;
     }
 
@@ -40,7 +40,7 @@ public class Libro {
         return "Libro{" +
                 "titulo='" + titulo + '\'' +
                 ", autor='" + autor + '\'' +
-                ", anioPubli='" + anioPubli + '\'' +
+                ", anioPubli=" + anioPubli +
                 '}';
     }
 }
