@@ -1,1 +1,1 @@
-Usuario [nombre: Lemi, edad: 21, correo: lemquilca22@gmail.com ]
+Usuario [nombre: lem, edad: 20, correo: lem@ ]

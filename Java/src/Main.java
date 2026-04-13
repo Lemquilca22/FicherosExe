@@ -19,21 +19,25 @@ public class Main {
     static void main(String[] args) throws IOException {
         Scanner sc=new Scanner(System.in);
         ArrayList<Usuario> users = new ArrayList<>();
-        File myObj = new File("primerfichero.txt");
 
-
-        if (myObj.exists()){
-            System.out.println("Cargando usuarios previos...");
-            Scanner myReader= new Scanner(myObj);
-            while (myReader.hasNextLine()){
-                String data = myReader.nextLine();
-                System.out.println("- "+data);
+        try {
+            File myObj = new File("primerfichero.txt");
+            if (myObj.exists()){
+                System.out.println("Cargando usuarios previos...");
+                Scanner myReader= new Scanner(myObj);
+                while (myReader.hasNextLine()){
+                    String data = myReader.nextLine();
+                    System.out.println("- "+data);
+                }
+                myReader.close();
+            }else {
+                myObj.createNewFile();
+                System.out.println("Archivo nuevo creado");
             }
-            myReader.close();
-        }else {
-            myObj.createNewFile();
-            System.out.println("Archivo nuevo creado");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+
 
         FileWriter myWriter = new FileWriter("primerfichero.txt",true);
 
