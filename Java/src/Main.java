@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 public class Main {
     public static void registrarse(Scanner sc, ArrayList<Usuario> si ){
-        System.out.println("REGISTRARSE:");
         System.out.print("NOMBRE: ");
         String nom=sc.nextLine();
         System.out.print("EDAD: ");
@@ -21,17 +20,27 @@ public class Main {
         Scanner sc=new Scanner(System.in);
         ArrayList<Usuario> users = new ArrayList<>();
         File myObj = new File("primerfichero.txt");
-        if (myObj.createNewFile()){
-            System.out.println("Archivo creado: "+myObj.getName());
-        }else {
-            System.out.println("Este archivo ya existe");
-        }
-        FileWriter myWriter = new FileWriter("primerfichero.txt");
 
+
+        if (myObj.exists()){
+            System.out.println("Cargando usuarios previos...");
+            Scanner myReader= new Scanner(myObj);
+            while (myReader.hasNextLine()){
+                String data = myReader.nextLine();
+                System.out.println("- "+data);
+            }
+            myReader.close();
+        }else {
+            myObj.createNewFile();
+            System.out.println("Archivo nuevo creado");
+        }
+
+        FileWriter myWriter = new FileWriter("primerfichero.txt",true);
 
         boolean start=true;
         while (start){
-            System.out.println("1) REGISTRARSE \n2) GUARDAR USUARIOS");
+            System.out.println();
+            System.out.println("1) AÑADIR USUARIO \n2) GUARDAR y SALIR");
             System.out.print("OPCION: ");
             int opcion = sc.nextInt();
             sc.nextLine();
@@ -42,11 +51,12 @@ public class Main {
                 case 2:
                     for (Usuario a: users){
                         try {
-                            myWriter.write(a.toString());
+                            myWriter.write(a.toString()+"\n");
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
                     }
+                    myWriter.close();
                     start=false;
                     break;
             }
