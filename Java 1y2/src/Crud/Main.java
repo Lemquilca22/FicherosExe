@@ -10,13 +10,27 @@ import java.util.Scanner;
 // Actualizar la información de un libro existente.
 // Eliminar libros del sistema.
 public class Main {
+    public static void print(){
+        System.out.println("¿Que quiere hacer hoy?"+ " Selecciona una opcion");
+        System.out.println("1) Añadir Libro"+
+                "\n"+"2) Mostrar Libros"+
+                "\n"+"3) Actualizar Libro"+
+                "\n"+"4) Eliminar Libro");
+        System.out.print("Rpta: ");
+    }
     public static void añadirLibro(Scanner sc, ArrayList<Libro> l1){
-        System.out.println("Nombre: "); String nombre=sc.nextLine();
+        System.out.println("Titulo: "); String nombre=sc.nextLine();
         System.out.println("Autor: "); String autor=sc.nextLine();
         System.out.println("Año de publicacion: "); int aniopub=sc.nextInt();
-        l1.add(new Libro(nombre, autor, aniopub));
+        try {
+            l1.add(new Libro(nombre, autor, aniopub));
+            System.out.println("Libro añadido correctamente");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
-    public static void modificarLibro(Scanner sc, ArrayList<Libro> l2){
+    public static void actualizarLibro(Scanner sc, ArrayList<Libro> l2){
         System.out.println("Libro que quieres modificar: ");
         String buscarnom=sc.nextLine();
 
@@ -44,6 +58,33 @@ public class Main {
             System.out.println("No encontré ese contacto");
         }
     }
+    public static void mostrarLibros(ArrayList<Libro> l3){
+        if (!l3.isEmpty()){
+            for(Libro a: l3){
+                System.out.println(a.toString());
+            }
+        } else {
+            System.out.println("Aun no hay libros en la biblioteca");
+        }
+
+    }
+    public static void eliminarLibro(Scanner sc, ArrayList<Libro> l4){
+        System.out.println("Libro que quieres modificar: ");
+        String libroEliminar=sc.nextLine();
+
+        boolean encontrado= false;
+        for (int i = 0; i < l4.size(); i++) {
+            if (l4.get(i).getTitulo().equalsIgnoreCase(libroEliminar)) {
+                l4.remove(i); // Busque que con remove puedo borrar todo un objeto en la posicion del array
+                encontrado = true;
+                System.out.println("Libro eliminado con éxito.");
+                break;
+            }
+        }
+        if (!encontrado){
+            System.out.println("No encontré ese Libro");
+        }
+    }
     static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
         ArrayList<Libro> libros = new ArrayList<>();
@@ -66,6 +107,7 @@ public class Main {
             throw new RuntimeException(e);
         }
 
+
         boolean start = true;
         while (start) {
             print();
@@ -76,15 +118,13 @@ public class Main {
                     añadirLibro(sc, libros);
                     break;
                 case 2:
-                    for (Contacto c : listaContactos) {
-                        c.mostrarContacto();
-                    }
+                    mostrarLibros(libros);
                     break;
                 case 3:
-                    modificarLibro(sc, libros);
+                    actualizarLibro(sc, libros);
                     break;
                 case 4:
-                    buscarcontacto(listaContactos, sc);
+                    eliminarLibro(sc, libros);
                     break;
             }
         }
